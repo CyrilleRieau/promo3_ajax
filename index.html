@@ -6,23 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Mon Premier Ajax</title>
-    <script>
-        let ajax = new XMLHttpRequest();
-        ajax.onreadystatechange = function() {
-            if (ajax.readyState === 4) {
-                if (ajax.status === 200 || ajax.status === 304) {
-                    console.log(ajax.response);
-                }
-            }
-        };
-        ajax.open('GET', 'fichier.txt', true);
-        ajax.send();
-    </script>
+    <script src="script/ajax.js"></script>
+
 
 </head>
 
 <body>
+    <button id="lancerequete">Test</button>
+    <p id="para"></p>
 
+    <script>
+        document.querySelector('#lancerequete').addEventListener('click', function() {
+
+            doAjax({
+                url: 'fichier.txt',
+                callback: function() {
+                    alert('requête terminée');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
