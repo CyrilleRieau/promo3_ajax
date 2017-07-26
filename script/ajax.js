@@ -14,13 +14,13 @@ function doAjax(options) {
     ajax.onreadystatechange = function() {
         if (ajax.readyState === 4) {
             if (ajax.status === 200 || ajax.status === 304) {
-                defaults.callback();
+                defaults.callback(ajax.response);
             } else {
                 defaults.callbackError();
             }
 
-            //                console.log(ajax.response);
-            //                document.querySelector('#para').textContent = ajax.response;
+            //console.log(ajax.response);
+            //document.querySelector('#para').textContent = ajax.response;
 
         }
     };

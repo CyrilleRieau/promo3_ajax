@@ -14,14 +14,30 @@
 <body>
     <button id="lancerequete">Test</button>
     <p id="para"></p>
+    <button id="lancerequete2">Test 2</button>
+    <p id="para2"></p>
 
     <script>
         document.querySelector('#lancerequete').addEventListener('click', function() {
 
+                doAjax({
+                    url: 'fichier.txt',
+                    callback: function(response) {
+                        document.querySelector('#para').innerHTML = response;
+                    }
+                });
+            })
+            //    alert('requête terminée');
+
+        document.querySelector('#lancerequete2').addEventListener('click', function() {
+
             doAjax({
-                url: 'fichier.txt',
-                callback: function() {
-                    alert('requête terminée');
+                url: 'README.md',
+                callback: function(response) {
+                    let div = document.createElement('div');
+                    div.innerHTML = response;
+                    document.querySelector('#para2').appendChild(div);
+                    //    alert('requête terminée');
                 }
             });
         });

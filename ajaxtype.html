@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax contenu</title>
+    <script src="script/ajax.js"></script>
+</head>
+
+<body>
+
+    <!--<button id="lancerequete">Test</button>
+    <p id="para"></p>-->
+    <div id="contenu"></div>
+    <ul id="liste"></ul>
+    <script>
+        //document.querySelector('#lancerequete').addEventListener('click', function() {
+
+        doAjax({
+            url: 'snippet.html',
+            callback: function(response) {
+                let parser = new DOMParser();
+                let snippet = parser.parseFromString(response, 'text/html');
+                document.querySelector('#contenu').appendChild(snippet.querySelector('section'));
+            }
+        });
+
+        doAjax({
+                url: 'data.json',
+                callback: function(response) {
+
+                    let objets = JSON.parse(response);
+                    let ul = document.querySelector('#liste');
+
+                    console.log(objets);
+                    for (let chien of objets) {
+                        let li = document.createElement('li');
+                        li.textContent = chien.name + ' ' + chien.race;
+                        ul.appendChild(li);
+
+                    };
+                }
+            })
+            //});
+            //    alert('requête terminée');
+    </script>
+</body>
+
+</html>
