@@ -17,6 +17,9 @@
     <button id="lancerequete2">Test 2</button>
     <p id="para2"></p>
 
+    <button id="lancerequete3">Test 3</button>
+    <p id="para3"></p>
+
     <script>
         document.querySelector('#lancerequete').addEventListener('click', function() {
 
@@ -41,6 +44,29 @@
                 }
             });
         });
+        document.querySelector('#lancerequete3').addEventListener('click', function() {
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', 'evil.js', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        eval(xhr.responseText);
+                    } else {
+                        console.error('unexpected status code:', this.status);
+                    }
+                }
+            };
+            xhr.send(null);
+        });
+        /*doAjax({
+            url: 'evil.js',
+            callback: function(response) {
+                eval(response);
+            }
+
+        }*/
+        //);
+        //})
     </script>
 </body>
 
