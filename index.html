@@ -16,9 +16,13 @@
     <p id="para"></p>
     <button id="lancerequete2">Test 2</button>
     <p id="para2"></p>
-
     <button id="lancerequete3">Test 3</button>
     <p id="para3"></p>
+    <form action="" method="GET">
+        <textarea name="text"></textarea>
+        <button id="lancerequete4">Send</button>
+        <p id="para4"></p>
+    </form>
 
     <script>
         document.querySelector('#lancerequete').addEventListener('click', function() {
@@ -44,13 +48,32 @@
                 }
             });
         });
-        document.querySelector('#lancerequete3').addEventListener('click', function() {
+        document.querySelector('#lancerequete3').addEventListener('click', function(e) {
+            e.preventDefault();
             let xhr = new XMLHttpRequest();
             xhr.open('GET', 'evil.js', true);
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         eval(xhr.responseText);
+                    } else {
+                        console.error('unexpected status code:', this.status);
+                    }
+                }
+            };
+            xhr.send(null);
+        });
+
+
+        document.querySelector('#lancerequete4').addEventListener('click', function(e) {
+            e.preventDefault();
+            let text = document.querySelector('textarea').value;
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', 'display.php?text=' + text, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        document.querySelector('#para4').innerHTML = xhr.response;
                     } else {
                         console.error('unexpected status code:', this.status);
                     }
